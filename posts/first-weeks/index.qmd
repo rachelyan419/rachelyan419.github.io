@@ -1,0 +1,13 @@
+---
+title: "My first weeks in MDS"
+author: "Rachel Yan"
+date: 2026-09-10
+---
+
+![Orientation day on campus.](orientation.jpg)
+
+My first few weeks in the Master of Data Science program at UBC have been both exhilarating and deeply rewarding. From the engaging orientation events to diving straight into our first week of classes, the transition back to intense academic life was fast-paced, surrounded by a cohort of incredibly talented and supportive peers. 
+
+One thing that genuinely surprised me was how quickly we transitioned from high-level concepts to hands-on, practical coding workflows. While the workload is definitely challenging, the collaborative atmosphere and the helpful guidance from instructors make every late-night debugging session feel like a shared victory rather than a lonely struggle.
+
+Overall, I am feeling optimistic and energized about the journey ahead. Although there is still so much more to learn and explore, I am already looking forward to seeing how much my skills will grow by the end of this program.

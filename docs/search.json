@@ -1,16 +1,51 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Blog",
     "section": "",
-    "text": "About this site"
+    "text": "My first weeks in MDS\n\n\n\n\n\n\n\n\nSep 10, 2026\n\n\nRachel Yan\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Rachel Yan",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "Hello! I am originally from China and am currently pursuing my Master of Data Science at the University of British Columbia. Prior to joining MDS, I completed my undergraduate studies in Information Management and Information Systems across Shanghai Ocean University and the University of Tasmania. I decided to enter the field of data science to sharpen my analytical skills and gain hands-on experience in solving complex, real-world problems."
+  },
+  {
+    "objectID": "posts/first-weeks/index.html",
+    "href": "posts/first-weeks/index.html",
+    "title": "My first weeks in MDS",
+    "section": "",
+    "text": "Orientation day on campus.\n\n\nMy first few weeks in the Master of Data Science program at UBC have been both exhilarating and deeply rewarding. From the engaging orientation events to diving straight into our first week of classes, the transition back to intense academic life was fast-paced, surrounded by a cohort of incredibly talented and supportive peers.\nOne thing that genuinely surprised me was how quickly we transitioned from high-level concepts to hands-on, practical coding workflows. While the workload is definitely challenging, the collaborative atmosphere and the helpful guidance from instructors make every late-night debugging session feel like a shared victory rather than a lonely struggle.\nOverall, I am feeling optimistic and energized about the journey ahead. Although there is still so much more to learn and explore, I am already looking forward to seeing how much my skills will grow by the end of this program."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "I grew up in Shanghai, China, and completed my undergraduate studies prior to joining the Master of Data Science program. My academic journey has given me a solid foundation to build upon as I transition into advanced analytical training."
+  },
+  {
+    "objectID": "about.html#background",
+    "href": "about.html#background",
+    "title": "About Me",
+    "section": "",
+    "text": "I grew up in Shanghai, China, and completed my undergraduate studies prior to joining the Master of Data Science program. My academic journey has given me a solid foundation to build upon as I transition into advanced analytical training."
+  },
+  {
+    "objectID": "about.html#why-data-science",
+    "href": "about.html#why-data-science",
+    "title": "About Me",
+    "section": "Why Data Science",
+    "text": "Why Data Science\nI chose to pursue data science because of its incredible power to turn complex, messy data into meaningful insights. Beyond the technical skills, I am most excited about the collaborative environment of this program and the opportunity to connect with peers from diverse academic and cultural backgrounds."
+  },
+  {
+    "objectID": "about.html#outside-of-data-science",
+    "href": "about.html#outside-of-data-science",
+    "title": "About Me",
+    "section": "Outside of Data Science",
+    "text": "Outside of Data Science\nWhen I am not deep into coding or coursework, you can usually find me exploring new hobbies and unwinding. I enjoy creating pixel art with perler beads, traveling to discover new places, and watching films. I am also a big fan of Asian cuisine, especially Japanese and Korean food, and I love trying out different local eateries on the weekends."
   }
 ]

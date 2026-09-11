@@ -2,4 +2,18 @@
 title: "About"
 ---
 
-About this site
+---
+title: "About Me"
+---
+
+## Background
+
+I grew up in Shanghai, China, and completed my undergraduate studies prior to joining the Master of Data Science program. My academic journey has given me a solid foundation to build upon as I transition into advanced analytical training.
+
+## Why Data Science
+
+I chose to pursue data science because of its incredible power to turn complex, messy data into meaningful insights. Beyond the technical skills, I am most excited about the collaborative environment of this program and the opportunity to connect with peers from diverse academic and cultural backgrounds.
+
+## Outside of Data Science
+
+When I am not deep into coding or coursework, you can usually find me exploring new hobbies and unwinding. I enjoy creating pixel art with perler beads, traveling to discover new places, and watching films. I am also a big fan of Asian cuisine, especially Japanese and Korean food, and I love trying out different local eateries on the weekends.

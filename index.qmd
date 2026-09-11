@@ -1,7 +1,11 @@
 ---
 title: "Rachel Yan"
+about:
+  template: jolla
+  
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+![](images/profile.jpg){width=250px}
+Hello! I am originally from China and am currently pursuing my Master of Data Science at the University of British Columbia. 
+Prior to joining MDS, I completed my undergraduate studies in Information Management and Information Systems across Shanghai Ocean University and the University of Tasmania. 
+I decided to enter the field of data science to sharpen my analytical skills and gain hands-on experience in solving complex, real-world problems.
