@@ -1,0 +1,96 @@
+---
+title: "How Rich Are the Continents? GDP per Capita, 1952 vs 2007 (R)"
+author: "Rachel Yan"
+date: "2026-09-25"
+---
+
+In this post I use R to compare average GDP per capita across continents
+in 1952 and 2007, and to see which continents grew the fastest.
+
+Data: [gapminder](https://cran.r-project.org/package=gapminder) R package by
+Jennifer Bryan, an excerpt of data from the
+[Gapminder Foundation](https://www.gapminder.org/data/) (CC BY 4.0).
+GDP per capita is measured in inflation-adjusted US dollars.
+
+## Setup
+
+```{r}
+#| message: false
+#| warning: false
+library(gapminder)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+
+## Explore the data
+
+```{r}
+dim(gapminder)
+range(gapminder$year)
+gapminder |> count(continent, name = "rows")
+```
+
+## Average GDP per capita by continent
+
+```{r}
+gdp_by_year <- gapminder |>
+  filter(year %in% c(1952, 2007)) |>
+  group_by(continent, year) |>
+  summarise(mean_gdp = round(mean(gdpPercap), 0), .groups = "drop")
+
+gdp_by_year |>
+  pivot_wider(names_from = year, values_from = mean_gdp) |>
+  mutate(times = round(`2007` / `1952`, 1)) |>
+  arrange(desc(`2007`))
+```
+
+## The richest countries in 1952
+
+```{r}
+gapminder |>
+  filter(year == 1952) |>
+  arrange(desc(gdpPercap)) |>
+  select(country, continent, gdpPercap) |>
+  head(5)
+```
+
+## Visualise
+
+```{r}
+#| label: fig-gapminder-r
+#| fig-cap: "Average GDP per capita by continent in 1952 and 2007."
+ggplot(gdp_by_year, aes(x = continent, y = mean_gdp, fill = continent)) +
+  geom_col(width = 0.7) +
+  geom_text(aes(label = scales::dollar(mean_gdp)), vjust = -0.4, size = 3) +
+  facet_wrap(~ year) +
+  scale_y_continuous(labels = scales::label_dollar(),
+                     expand = expansion(mult = c(0, 0.1))) +
+  scale_fill_manual(values = c("#F7A6AC", "#EEC78A", "#CBE4B1", "#B8E5FA", "#EEE9A2")) +
+  labs(x = NULL, y = "Average GDP per capita (US$)") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+## What I found
+
+Average GDP per capita grew on every continent between 1952 and 2007, but the
+gaps between continents became much larger. Oceania was the richest continent
+in both years, rising from US$10,298 to US$29,810. Europe came second, reaching
+US$25,054 in 2007. Africa remained by far the poorest: its average rose from
+US$1,253 to only US$3,089, about a tenth of Oceania's in 2007.
+
+Europe grew the fastest, with average GDP per capita rising 4.4 times. The other
+continents grew between 2.4 and 2.9 times. Because Africa started from the
+lowest level and grew relatively slowly, the absolute gap between Africa and
+Oceania widened from about US$9,000 in 1952 to almost US$27,000 in 2007.
+
+Averages can be misleading. In 1952, Kuwait had a GDP per capita of about
+US$108,000 thanks to its oil wealth, more than seven times that of the next
+richest country, Switzerland (about US$14,700). This single country pulls up
+Asia's 1952 average and makes Asia look richer than the Americas, even though
+most Asian countries were poor at the time. It also helps explain why Asia shows
+the smallest growth ratio (2.4 times), despite the rapid economic growth of many
+Asian countries. A median, or looking at individual countries, would give a
+fuller picture. The data also stop in 2007.
