@@ -4,7 +4,7 @@
     "href": "blog.html",
     "title": "Blog",
     "section": "",
-    "text": "How Big Are Antarctic Penguins? (Python)\n\n\n\n\n\n\n\n\nSep 25, 2026\n\n\nRachel Yan\n\n\n\n\n\n\n\n\n\n\n\n\nMy first weeks in MDS\n\n\n\n\n\n\n\n\nSep 10, 2026\n\n\nRachel Yan\n\n\n\n\n\nNo matching items"
+    "text": "How Rich Are the Continents? GDP per Capita, 1952 vs 2007 (R)\n\n\n\n\n\n\n\n\nSep 25, 2026\n\n\nRachel Yan\n\n\n\n\n\n\n\n\n\n\n\n\nHow Big Are Antarctic Penguins? (Python)\n\n\n\n\n\n\n\n\nSep 25, 2026\n\n\nRachel Yan\n\n\n\n\n\n\n\n\n\n\n\n\nMy first weeks in MDS\n\n\n\n\n\n\n\n\nSep 10, 2026\n\n\nRachel Yan\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
@@ -12,6 +12,55 @@
     "title": "Rachel Yan",
     "section": "",
     "text": "Hello! I am originally from China and am currently pursuing my Master of Data Science at the University of British Columbia. Prior to joining MDS, I completed my undergraduate studies in Information Management and Information Systems across Shanghai Ocean University and the University of Tasmania. I decided to enter the field of data science to sharpen my analytical skills and gain hands-on experience in solving complex, real-world problems."
+  },
+  {
+    "objectID": "posts/gapminder-r/index.html",
+    "href": "posts/gapminder-r/index.html",
+    "title": "How Rich Are the Continents? GDP per Capita, 1952 vs 2007 (R)",
+    "section": "",
+    "text": "In this post I use R to compare average GDP per capita across continents in 1952 and 2007, and to see which continents grew the fastest.\nData: gapminder R package by Jennifer Bryan, an excerpt of data from the Gapminder Foundation (CC BY 4.0). GDP per capita is measured in inflation-adjusted US dollars."
+  },
+  {
+    "objectID": "posts/gapminder-r/index.html#setup",
+    "href": "posts/gapminder-r/index.html#setup",
+    "title": "How Rich Are the Continents? GDP per Capita, 1952 vs 2007 (R)",
+    "section": "Setup",
+    "text": "Setup\n\nlibrary(gapminder)\nlibrary(dplyr)\nlibrary(tidyr)\nlibrary(ggplot2)"
+  },
+  {
+    "objectID": "posts/gapminder-r/index.html#explore-the-data",
+    "href": "posts/gapminder-r/index.html#explore-the-data",
+    "title": "How Rich Are the Continents? GDP per Capita, 1952 vs 2007 (R)",
+    "section": "Explore the data",
+    "text": "Explore the data\n\ndim(gapminder)\n\n[1] 1704    6\n\nrange(gapminder$year)\n\n[1] 1952 2007\n\ngapminder |&gt; count(continent, name = \"rows\")\n\n# A tibble: 5 × 2\n  continent  rows\n  &lt;fct&gt;     &lt;int&gt;\n1 Africa      624\n2 Americas    300\n3 Asia        396\n4 Europe      360\n5 Oceania      24"
+  },
+  {
+    "objectID": "posts/gapminder-r/index.html#average-gdp-per-capita-by-continent",
+    "href": "posts/gapminder-r/index.html#average-gdp-per-capita-by-continent",
+    "title": "How Rich Are the Continents? GDP per Capita, 1952 vs 2007 (R)",
+    "section": "Average GDP per capita by continent",
+    "text": "Average GDP per capita by continent\n\ngdp_by_year &lt;- gapminder |&gt;\n  filter(year %in% c(1952, 2007)) |&gt;\n  group_by(continent, year) |&gt;\n  summarise(mean_gdp = round(mean(gdpPercap), 0), .groups = \"drop\")\n\ngdp_by_year |&gt;\n  pivot_wider(names_from = year, values_from = mean_gdp) |&gt;\n  mutate(times = round(`2007` / `1952`, 1)) |&gt;\n  arrange(desc(`2007`))\n\n# A tibble: 5 × 4\n  continent `1952` `2007` times\n  &lt;fct&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;\n1 Oceania    10298  29810   2.9\n2 Europe      5661  25054   4.4\n3 Asia        5195  12473   2.4\n4 Americas    4079  11003   2.7\n5 Africa      1253   3089   2.5"
+  },
+  {
+    "objectID": "posts/gapminder-r/index.html#the-richest-countries-in-1952",
+    "href": "posts/gapminder-r/index.html#the-richest-countries-in-1952",
+    "title": "How Rich Are the Continents? GDP per Capita, 1952 vs 2007 (R)",
+    "section": "The richest countries in 1952",
+    "text": "The richest countries in 1952\n\ngapminder |&gt;\n  filter(year == 1952) |&gt;\n  arrange(desc(gdpPercap)) |&gt;\n  select(country, continent, gdpPercap) |&gt;\n  head(5)\n\n# A tibble: 5 × 3\n  country       continent gdpPercap\n  &lt;fct&gt;         &lt;fct&gt;         &lt;dbl&gt;\n1 Kuwait        Asia        108382.\n2 Switzerland   Europe       14734.\n3 United States Americas     13990.\n4 Canada        Americas     11367.\n5 New Zealand   Oceania      10557."
+  },
+  {
+    "objectID": "posts/gapminder-r/index.html#visualise",
+    "href": "posts/gapminder-r/index.html#visualise",
+    "title": "How Rich Are the Continents? GDP per Capita, 1952 vs 2007 (R)",
+    "section": "Visualise",
+    "text": "Visualise\n\nggplot(gdp_by_year, aes(x = continent, y = mean_gdp, fill = continent)) +\n  geom_col(width = 0.7) +\n  geom_text(aes(label = scales::dollar(mean_gdp)), vjust = -0.4, size = 3) +\n  facet_wrap(~ year) +\n  scale_y_continuous(labels = scales::label_dollar(),\n                     expand = expansion(mult = c(0, 0.1))) +\n  scale_fill_manual(values = c(\"#F7A6AC\", \"#EEC78A\", \"#CBE4B1\", \"#B8E5FA\", \"#EEE9A2\")) +\n  labs(x = NULL, y = \"Average GDP per capita (US$)\") +\n  theme_minimal() +\n  theme(legend.position = \"none\",\n        axis.text.x = element_text(angle = 30, hjust = 1))\n\n\n\n\n\n\n\nFigure 1: Average GDP per capita by continent in 1952 and 2007."
+  },
+  {
+    "objectID": "posts/gapminder-r/index.html#what-i-found",
+    "href": "posts/gapminder-r/index.html#what-i-found",
+    "title": "How Rich Are the Continents? GDP per Capita, 1952 vs 2007 (R)",
+    "section": "What I found",
+    "text": "What I found\nAverage GDP per capita grew on every continent between 1952 and 2007, but the gaps between continents became much larger. Oceania was the richest continent in both years, rising from US$10,298 to US$29,810. Europe came second, reaching US$25,054 in 2007. Africa remained by far the poorest: its average rose from US$1,253 to only US$3,089, about a tenth of Oceania’s in 2007.\nEurope grew the fastest, with average GDP per capita rising 4.4 times. The other continents grew between 2.4 and 2.9 times. Because Africa started from the lowest level and grew relatively slowly, the absolute gap between Africa and Oceania widened from about US$9,000 in 1952 to almost US$27,000 in 2007.\nAverages can be misleading. In 1952, Kuwait had a GDP per capita of about US$108,000 thanks to its oil wealth, more than seven times that of the next richest country, Switzerland (about US$14,700). This single country pulls up Asia’s 1952 average and makes Asia look richer than the Americas, even though most Asian countries were poor at the time. It also helps explain why Asia shows the smallest growth ratio (2.4 times), despite the rapid economic growth of many Asian countries. A median, or looking at individual countries, would give a fuller picture. The data also stop in 2007."
   },
   {
     "objectID": "posts/first-weeks/index.html",

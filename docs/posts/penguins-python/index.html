@@ -210,7 +210,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Data: <a href="https://allisonhorst.github.io/palmerpenguins/">Palmer Penguins</a>, collected by Dr.&nbsp;Kristen Gorman and the Palmer Station Antarctica LTER. Released under the CC0 licence.</p>
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
-<div id="12d5f73b" class="cell" data-execution_count="1">
+<div id="1bdb32ca" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -218,7 +218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="load-and-clean-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="load-and-clean-the-data">Load and clean the data</h2>
-<div id="691b8b42" class="cell" data-execution_count="2">
+<div id="0d9bfff0" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> load_penguins()</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(penguins.shape)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> penguins.dropna(subset<span class="op">=</span>[<span class="st">"body_mass_g"</span>, <span class="st">"flipper_length_mm"</span>, <span class="st">"sex"</span>])</span>
@@ -240,7 +240,7 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="body-mass-by-species" class="level2">
 <h2 class="anchored" data-anchor-id="body-mass-by-species">Body mass by species</h2>
-<div id="d0d116cf" class="cell" data-execution_count="3">
+<div id="b6d2fc2b" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>penguins.groupby(<span class="st">"species"</span>)[<span class="st">"body_mass_g"</span>].agg([<span class="st">"count"</span>, <span class="st">"mean"</span>, <span class="st">"std"</span>]).<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -289,7 +289,7 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="body-mass-by-species-and-sex" class="level2">
 <h2 class="anchored" data-anchor-id="body-mass-by-species-and-sex">Body mass by species and sex</h2>
-<div id="995ff6d7" class="cell" data-execution_count="4">
+<div id="2c12d1cc" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>penguins.groupby([<span class="st">"species"</span>, <span class="st">"sex"</span>])[<span class="st">"body_mass_g"</span>].mean().<span class="bu">round</span>(<span class="dv">1</span>).unstack()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
@@ -333,7 +333,7 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="flipper-length-and-body-mass" class="level2">
 <h2 class="anchored" data-anchor-id="flipper-length-and-body-mass">Flipper length and body mass</h2>
-<div id="d774f5af" class="cell" data-execution_count="5">
+<div id="c2606d19" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">round</span>(penguins[<span class="st">"flipper_length_mm"</span>].corr(penguins[<span class="st">"body_mass_g"</span>]), <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>np.float64(0.87)</code></pre>
