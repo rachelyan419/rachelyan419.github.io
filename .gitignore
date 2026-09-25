@@ -1,2 +1,12 @@
 /.quarto/
 **/*.quarto_ipynb
+
+# Milestone 3 required
+_site/
+.DS_Store
+.venv/
+renv/library/
+
+# R clutter
+.Rhistory
+.Rproj.user/
