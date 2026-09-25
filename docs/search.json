@@ -4,7 +4,7 @@
     "href": "blog.html",
     "title": "Blog",
     "section": "",
-    "text": "My first weeks in MDS\n\n\n\n\n\n\n\n\nSep 10, 2026\n\n\nRachel Yan\n\n\n\n\n\nNo matching items"
+    "text": "How Big Are Antarctic Penguins? (Python)\n\n\n\n\n\n\n\n\nSep 25, 2026\n\n\nRachel Yan\n\n\n\n\n\n\n\n\n\n\n\n\nMy first weeks in MDS\n\n\n\n\n\n\n\n\nSep 10, 2026\n\n\nRachel Yan\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
@@ -19,6 +19,55 @@
     "title": "My first weeks in MDS",
     "section": "",
     "text": "Orientation day on campus.\n\n\nMy first few weeks in the Master of Data Science program at UBC have been both exhilarating and deeply rewarding. From the engaging orientation events to diving straight into our first week of classes, the transition back to intense academic life was fast-paced, surrounded by a cohort of incredibly talented and supportive peers.\nOne thing that genuinely surprised me was how quickly we transitioned from high-level concepts to hands-on, practical coding workflows. While the workload is definitely challenging, the collaborative atmosphere and the helpful guidance from instructors make every late-night debugging session feel like a shared victory rather than a lonely struggle.\nOverall, I am feeling optimistic and energized about the journey ahead. Although there is still so much more to learn and explore, I am already looking forward to seeing how much my skills will grow by the end of this program."
+  },
+  {
+    "objectID": "posts/penguins-python/index.html",
+    "href": "posts/penguins-python/index.html",
+    "title": "How Big Are Antarctic Penguins? (Python)",
+    "section": "",
+    "text": "In this post I use Python to explore how body size differs across three species of penguins living near Palmer Station, Antarctica.\nData: Palmer Penguins, collected by Dr. Kristen Gorman and the Palmer Station Antarctica LTER. Released under the CC0 licence."
+  },
+  {
+    "objectID": "posts/penguins-python/index.html#setup",
+    "href": "posts/penguins-python/index.html#setup",
+    "title": "How Big Are Antarctic Penguins? (Python)",
+    "section": "Setup",
+    "text": "Setup\n\nimport pandas as pd\nimport matplotlib.pyplot as plt\nfrom palmerpenguins import load_penguins"
+  },
+  {
+    "objectID": "posts/penguins-python/index.html#load-and-clean-the-data",
+    "href": "posts/penguins-python/index.html#load-and-clean-the-data",
+    "title": "How Big Are Antarctic Penguins? (Python)",
+    "section": "Load and clean the data",
+    "text": "Load and clean the data\n\npenguins = load_penguins()\nprint(penguins.shape)\npenguins = penguins.dropna(subset=[\"body_mass_g\", \"flipper_length_mm\", \"sex\"])\nprint(penguins.shape)\npenguins[\"species\"].value_counts().sort_index()\n\n(344, 8)\n(333, 8)\n\n\nspecies\nAdelie       146\nChinstrap     68\nGentoo       119\nName: count, dtype: int64\n\n\nI drop the few penguins with missing body mass, flipper length, or sex."
+  },
+  {
+    "objectID": "posts/penguins-python/index.html#body-mass-by-species",
+    "href": "posts/penguins-python/index.html#body-mass-by-species",
+    "title": "How Big Are Antarctic Penguins? (Python)",
+    "section": "Body mass by species",
+    "text": "Body mass by species\n\npenguins.groupby(\"species\")[\"body_mass_g\"].agg([\"count\", \"mean\", \"std\"]).round(1)\n\n\n\n\n\n\n\n\ncount\nmean\nstd\n\n\nspecies\n\n\n\n\n\n\n\nAdelie\n146\n3706.2\n458.6\n\n\nChinstrap\n68\n3733.1\n384.3\n\n\nGentoo\n119\n5092.4\n501.5"
+  },
+  {
+    "objectID": "posts/penguins-python/index.html#body-mass-by-species-and-sex",
+    "href": "posts/penguins-python/index.html#body-mass-by-species-and-sex",
+    "title": "How Big Are Antarctic Penguins? (Python)",
+    "section": "Body mass by species and sex",
+    "text": "Body mass by species and sex\n\npenguins.groupby([\"species\", \"sex\"])[\"body_mass_g\"].mean().round(1).unstack()\n\n\n\n\n\n\n\nsex\nfemale\nmale\n\n\nspecies\n\n\n\n\n\n\nAdelie\n3368.8\n4043.5\n\n\nChinstrap\n3527.2\n3939.0\n\n\nGentoo\n4679.7\n5484.8"
+  },
+  {
+    "objectID": "posts/penguins-python/index.html#flipper-length-and-body-mass",
+    "href": "posts/penguins-python/index.html#flipper-length-and-body-mass",
+    "title": "How Big Are Antarctic Penguins? (Python)",
+    "section": "Flipper length and body mass",
+    "text": "Flipper length and body mass\n\nround(penguins[\"flipper_length_mm\"].corr(penguins[\"body_mass_g\"]), 2)\n\nnp.float64(0.87)\n\n\n\nfig, ax = plt.subplots(figsize=(6, 4))\nfor (name, group), color in zip(penguins.groupby(\"species\"), [\"#8FA3B5\", \"#D8A7A7\", \"#9C88B0\"]):\n    ax.scatter(group[\"flipper_length_mm\"], group[\"body_mass_g\"], label=name, alpha=0.8, color=color)\nax.set_xlabel(\"Flipper length (mm)\")\nax.set_ylabel(\"Body mass (g)\")\nax.legend(title=\"Species\")\nplt.show()\n\n\n\n\n\n\n\nFigure 1: Flipper length versus body mass for three penguin species."
+  },
+  {
+    "objectID": "posts/penguins-python/index.html#what-i-found",
+    "href": "posts/penguins-python/index.html#what-i-found",
+    "title": "How Big Are Antarctic Penguins? (Python)",
+    "section": "What I found",
+    "text": "What I found\nAfter removing penguins with missing values, the data contain 333 penguins: 146 Adelie, 68 Chinstrap, and 119 Gentoo. Gentoo penguins are clearly the largest species, with an average body mass of about 5,092 g. Adelie and Chinstrap penguins are much lighter and almost identical in size, averaging about 3,706 g and 3,733 g respectively. Within every species, males are heavier than females. The gap is largest for Gentoo penguins (about 805 g), followed by Adelie (about 675 g) and Chinstrap penguins (about 412 g).\nFlipper length and body mass are strongly and positively correlated, with a correlation of 0.87: penguins with longer flippers tend to be heavier. In the scatter plot, Gentoo penguins form their own group in the upper right, with flipper lengths of roughly 205 to 230 mm. Adelie and Chinstrap penguins overlap heavily in the lower left, with most flippers between about 180 and 205 mm. The same upward trend also appears within each species, not only between them.\nThis means body size alone is enough to pick out a Gentoo penguin, but not to tell an Adelie from a Chinstrap. The data come from three islands over three years, so they may not represent all penguins of these species. A natural next step would be to look at bill length and bill depth, which might help separate Adelie and Chinstrap penguins."
   },
   {
     "objectID": "about.html",

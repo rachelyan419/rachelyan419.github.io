@@ -1,0 +1,87 @@
+---
+title: "How Big Are Antarctic Penguins? (Python)"
+author: "Rachel Yan"
+date: "2026-09-25"
+---
+
+In this post I use Python to explore how body size differs across three
+species of penguins living near Palmer Station, Antarctica.
+
+Data: [Palmer Penguins](https://allisonhorst.github.io/palmerpenguins/),
+collected by Dr. Kristen Gorman and the Palmer Station Antarctica LTER.
+Released under the CC0 licence.
+
+## Setup
+
+```{python}
+#| warning: false
+import pandas as pd
+import matplotlib.pyplot as plt
+from palmerpenguins import load_penguins
+```
+
+## Load and clean the data
+
+```{python}
+penguins = load_penguins()
+print(penguins.shape)
+penguins = penguins.dropna(subset=["body_mass_g", "flipper_length_mm", "sex"])
+print(penguins.shape)
+penguins["species"].value_counts().sort_index()
+```
+
+I drop the few penguins with missing body mass, flipper length, or sex.
+
+## Body mass by species
+
+```{python}
+penguins.groupby("species")["body_mass_g"].agg(["count", "mean", "std"]).round(1)
+```
+
+## Body mass by species and sex
+
+```{python}
+penguins.groupby(["species", "sex"])["body_mass_g"].mean().round(1).unstack()
+```
+
+## Flipper length and body mass
+
+```{python}
+round(penguins["flipper_length_mm"].corr(penguins["body_mass_g"]), 2)
+```
+
+```{python}
+#| label: fig-penguins-py
+#| fig-cap: "Flipper length versus body mass for three penguin species."
+fig, ax = plt.subplots(figsize=(6, 4))
+for (name, group), color in zip(penguins.groupby("species"), ["#8FA3B5", "#D8A7A7", "#9C88B0"]):
+    ax.scatter(group["flipper_length_mm"], group["body_mass_g"], label=name, alpha=0.8, color=color)
+ax.set_xlabel("Flipper length (mm)")
+ax.set_ylabel("Body mass (g)")
+ax.legend(title="Species")
+plt.show()
+```
+
+## What I found
+
+After removing penguins with missing values, the data contain 333 penguins:
+146 Adelie, 68 Chinstrap, and 119 Gentoo. Gentoo penguins are clearly the
+largest species, with an average body mass of about 5,092 g. Adelie and
+Chinstrap penguins are much lighter and almost identical in size, averaging
+about 3,706 g and 3,733 g respectively. Within every species, males are
+heavier than females. The gap is largest for Gentoo penguins (about 805 g),
+followed by Adelie (about 675 g) and Chinstrap penguins (about 412 g).
+
+Flipper length and body mass are strongly and positively correlated, with a
+correlation of 0.87: penguins with longer flippers tend to be heavier. In the
+scatter plot, Gentoo penguins form their own group in the upper right, with
+flipper lengths of roughly 205 to 230 mm. Adelie and Chinstrap penguins
+overlap heavily in the lower left, with most flippers between about 180 and
+205 mm. The same upward trend also appears within each species, not only
+between them.
+
+This means body size alone is enough to pick out a Gentoo penguin, but not to
+tell an Adelie from a Chinstrap. The data come from three islands over three
+years, so they may not represent all penguins of these species. A natural next
+step would be to look at bill length and bill depth, which might help separate
+Adelie and Chinstrap penguins.
