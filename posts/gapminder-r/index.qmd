@@ -7,9 +7,9 @@ date: "2026-09-25"
 In this post I use R to compare average GDP per capita across continents
 in 1952 and 2007, and to see which continents grew the fastest.
 
-Data: [gapminder](https://cran.r-project.org/package=gapminder) R package by
-Jennifer Bryan, an excerpt of data from the
-[Gapminder Foundation](https://www.gapminder.org/data/) (CC BY 4.0).
+Data: [gapminder](https://jennybc.github.io/gapminder/) R package by
+Jennifer Bryan, an excerpt of data from
+[Gapminder](https://www.gapminder.org/data/). Released under the CC0 licence.
 GDP per capita is measured in inflation-adjusted US dollars.
 
 ## Setup
